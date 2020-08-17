@@ -84,7 +84,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>openapi.yaml</inputSpec>
+                            <inputSpec>../server/src/main/resources/openapi.yaml</inputSpec>
                             <generatorName>java</generatorName>
                             <apiPackage>gustafbratt.api</apiPackage>
                             <modelPackage>gustafbratt.model</modelPackage>
