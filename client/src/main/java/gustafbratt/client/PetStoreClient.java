@@ -1,48 +1,37 @@
 package gustafbratt.client;
 
 import com.google.gson.Gson;
-import gustafbratt.ApiClient;
-import gustafbratt.model.Pet;
-import ca.mimic.oauth2library;
+import gustafbratt.generated.ApiClient;
+import gustafbratt.client.ClientConfig;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.Reader;
+import java.io.*;
 
-class PetStoreClient extends ApiClient {
+public class PetStoreClient extends ApiClient {
+
+    public static final String CLIENTCONFIG_JSON = "clientconfig.json";
+
     public PetStoreClient()  {
         super();
-        File file = new File(
-                getClass().getClassLoader().getResource("clientconfig.json").getFile()
-        );
-        Gson gson = new Gson();
-        Reader r = null;
+        ClientConfig clientConfig;
         try {
-            r = new FileReader(file);
-        } catch (FileNotFoundException e) {
+            clientConfig = getClientConfig();
+        }catch (IOException e) {
+            System.err.println("Could not find file " + CLIENTCONFIG_JSON);
             e.printStackTrace();
             return;
         }
-
-        ClientConfig clientConfig = gson.fromJson(r, ClientConfig.class);
+        if (clientConfig == null) return;
         setBasePath(clientConfig.basePath);
-        setDebugging(true);
-        doOauth2Stuff();
+        setDebugging(clientConfig.debugging);
     }
 
-    private void doOauth2Stuff() {
-        OAuth2Client client = new OAuth2Client.Builder("username", "password", "client-id", "client-secret", "site").build();
-        OAuthResponse response = client.requestAccessToken();
-
-        if (response.isSuccessful()) {
-            String accessToken = response.getAccessToken();
-            String refreshToken = response.getRefreshToken();
-        } else {
-            OAuthError error = response.getOAuthError();
-            String errorMsg = error.getError();
-        }
-
-        response.getCode();
+    private ClientConfig getClientConfig() throws IOException {
+        File file = new File(
+                getClass().getClassLoader().getResource(CLIENTCONFIG_JSON).getFile()
+        );
+        Gson gson = new Gson();
+        Reader reader = new FileReader(file);
+        ClientConfig clientConfig = gson.fromJson(reader, ClientConfig.class);
+        return clientConfig;
     }
 }
