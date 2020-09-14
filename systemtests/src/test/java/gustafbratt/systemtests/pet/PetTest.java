@@ -1,7 +1,7 @@
 package gustafbratt.systemtests.pet;
 
-import gustafbratt.ApiException;
-import gustafbratt.model.Pet;
+import gustafbratt.generated.ApiException;
+import gustafbratt.generated.model.Pet;
 import gustafbratt.systemtests.TestUtils;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;

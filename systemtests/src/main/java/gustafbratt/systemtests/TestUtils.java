@@ -1,5 +1,5 @@
 package gustafbratt.systemtests;
-import gustafbratt.model.Category;
+import gustafbratt.generated.model.Category;
 
 import java.util.UUID;
 

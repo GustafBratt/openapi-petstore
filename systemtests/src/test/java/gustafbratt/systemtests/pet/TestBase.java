@@ -1,7 +1,7 @@
 package gustafbratt.systemtests.pet;
 
-import gustafbratt.ApiClient;
-import gustafbratt.api.PetApi;
+import gustafbratt.generated.ApiClient;
+import gustafbratt.generated.api.PetApi;
 
 public class TestBase {
 
