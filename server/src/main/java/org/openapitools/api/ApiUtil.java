@@ -19,8 +19,9 @@ public class ApiUtil {
     }
 
     public static void checkApiKey(NativeWebRequest req) {
+        /* WE DON'T NEED KEYS WHERE WE'RE GOING!
         if (!"1".equals(System.getenv("DISABLE_API_KEY")) && !"special-key".equals(req.getHeader("api_key"))) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Missing API key!");
-        }
+        }*/
     }
 }
